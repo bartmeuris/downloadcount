@@ -14,18 +14,18 @@ import (
 )
 
 type DownloadSource struct {
-	Source string
-	Regex  string
-	Fields []string
+	Source    string
+	Regex     string
+	Fields    []string
 	TimeField struct {
-		Field string
+		Field  string
 		Format string
 	} `json:"time,omitempty"`
 
-	tailFile *tail.Tail
-	lastTime time.Time
-	lastLine uint64
-	re       *regexp.Regexp
+	tailFile  *tail.Tail
+	lastTime  time.Time
+	lastLine  uint64
+	re        *regexp.Regexp
 	timefield int
 }
 
@@ -102,7 +102,7 @@ func (ds *DownloadSource) Process() {
 		return
 	}
 	count := 0
-	t := time.After(10*time.Second)
+	t := time.After(10 * time.Second)
 	var lastTime time.Time
 	for {
 		select {
@@ -111,9 +111,9 @@ func (ds *DownloadSource) Process() {
 				return
 			}
 			count += ds.processLine(l)
-		case <- t:
+		case <-t:
 			fmt.Printf("FLUSH: %d since %s\n", count, lastTime.String())
-			t = time.After(10*time.Second)
+			t = time.After(10 * time.Second)
 			//count = 0
 			lastTime = time.Now()
 		}
