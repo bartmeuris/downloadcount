@@ -1,14 +1,10 @@
-# Download counter based on logs and regex
+# Download counter
 
-#tail -n +0 -f access.log | grep "GET /\(.*\)/\(win32\|osx\|ubuntu.*\)/.*\([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\).* 200 .*\$" | sed -e "s#^.*\[\([0-9]*.*\)\] .*GET /\(.*\)/\(win32\|osx\|ubuntu.*\)/.*-\([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\).* 200 .*\$#\1|\2|\3|\4#
+This is work in progress.
 
-	"regex": "^.*\\[\\([0-9]*.*\\)\\] .*GET \/\\(.*\\)\/\\(win32\\|osx\\|ubuntu.*\\)\/.*-\\([0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*\\).* 200 .*$",
+The intent is to push download counts into a timeseries database (InfluxDB) based on nginx or apache logfile(s), or any file matching a regex.
 
-	"regex": "^.*\\[([0-9]*.*)\\] .*GET \/(.*)/(win32|osx|ubuntu.*)\/.*([0-9]*\\.[0-9]*\\.[0-9]*).* 200 .*$",
-	"fields": [ "time", "product", "platform", "version" ]
+Tags are added to the timeseries entry, based on fields defined in the regex. Note that named fields are not supported, since additional features might be added in the future that would prevent this. 
 
-	"regex": "^(.*)$",
-	"fields": [ "field" ]
 
-	"regex": "^.*\\[([0-9]*.*)\\] .*GET (\/(.*)/(win32|osx|ubuntu.*)\/[^0-9]*([0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*).*[^s][^i][^g]) HTTP.* 200 .*$",
-	"fields": [ "time", "file", "product", "platform", "version" ]
+
