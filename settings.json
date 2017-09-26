@@ -1,0 +1,12 @@
+[
+{
+	"source": "access.log",
+	"regex": "^.*\\[([0-9]*.*)\\] .*GET \/(.*)/(win32|osx|ubuntu.*)\/[^0-9]*([0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*).*[^s][^i][^g] HTTP.* 200 .*$",
+	"fields": [ "time", "product", "platform", "version" ],
+	"time": {
+		"field": "time",
+		"format": "02/Jan/2006:15:04:05 -0700"
+	}
+}
+]
+
